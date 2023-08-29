@@ -1,16 +1,9 @@
 ﻿using Soneta.Business;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
 using Soneta.Kadry;
-using Soneta.KadryPlace;
 using Soneta.Types;
 using Rekrutacja.Workers.Template;
 using Soneta.Tools;
-using Syncfusion.XlsIO.Parser.Biff_Records;
 
 //Rejetracja Workera - Pierwszy TypeOf określa jakiego typu ma być wyświetlany Worker, Drugi parametr wskazuje na jakim Typie obiektów będzie wyświetlany Worker
 [assembly: Worker(typeof(TemplateWorker), typeof(Pracownicy))]
@@ -34,7 +27,8 @@ namespace Rekrutacja.Workers.Template
             public Date DataObliczen { get; set; }
             [DefaultWidth(100)]
             [Priority(4)]
-            public string MathSign { get; set; }
+            [Caption("Figura")]
+            public Figury Figura { get; set; }
             public TemplateWorkerParametry(Context context) : base(context)
             {
                 this.DataObliczen = DateTime.Now;
@@ -49,7 +43,7 @@ namespace Rekrutacja.Workers.Template
         public TemplateWorkerParametry Parametry { get; set; }
         //Atrybut Action - Wywołuje nam metodę która znajduje się poniżej
         [Action("Kalkulator",
-           Description = "Prosty Test ",
+           Description = "Prosty kalkulator",
            Priority = 10,
            Mode = ActionMode.ReadOnlySession,
            Icon = ActionIcon.Accept,
@@ -77,7 +71,7 @@ namespace Rekrutacja.Workers.Template
                 //Otwieramy Transaction aby można było edytować obiekt z sesji
                 using (ITransaction trans = nowaSesja.Logout(true))
                 {
-                    var result = Calculate(Parametry.ZmiennaA, Parametry.ZmiennaB, Parametry.MathSign);
+                    var result = Calculate(Parametry.ZmiennaA, Parametry.ZmiennaB, Parametry.Figura);
                     foreach (var selectedWorker in selectedWorkers)
                     {
                         //Pobieramy obiekt z Nowo utworzonej sesji
@@ -95,29 +89,37 @@ namespace Rekrutacja.Workers.Template
             }
         }
 
-        private double Calculate(int numberOne, int numberTwo, string mathSign)
+        private double Calculate(int numberOne, int numberTwo, Figury figury)
         {
-            if (mathSign == "+")
+            if (figury == Figury.Kwadrat)
             {
-                return numberOne + numberTwo;
+                return numberOne * numberOne;
             }
 
-            if (mathSign == "-")
-            {
-                return numberOne - numberTwo;
-            }
-
-            if (mathSign == "*")
+            if (figury == Figury.Prostokąt)
             {
                 return numberOne * numberTwo;
             }
 
-            if (mathSign == "/")
+            if (figury == Figury.Trojkąt)
             {
-                return numberOne / numberTwo;
+                return (numberOne * numberTwo) / 2;
+            }
+
+            if (figury == Figury.Koło)
+            {
+                return 3.14 * (numberOne * numberOne);
             }
 
             return 0.00;
         }
+    }
+
+    public enum Figury
+    {
+        Kwadrat,
+        Prostokąt,
+        Trojkąt,
+        Koło
     }
 }
