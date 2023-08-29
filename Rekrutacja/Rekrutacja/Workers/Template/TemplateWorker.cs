@@ -34,6 +34,7 @@ namespace Rekrutacja.Workers.Template
             public Date DataObliczen { get; set; }
             [DefaultWidth(100)]
             [Priority(4)]
+            [Caption("Operacja")]
             public string MathSign { get; set; }
             public TemplateWorkerParametry(Context context) : base(context)
             {
@@ -49,7 +50,7 @@ namespace Rekrutacja.Workers.Template
         public TemplateWorkerParametry Parametry { get; set; }
         //Atrybut Action - Wywołuje nam metodę która znajduje się poniżej
         [Action("Kalkulator",
-           Description = "Prosty Test ",
+           Description = "Prosty kalkulator ",
            Priority = 10,
            Mode = ActionMode.ReadOnlySession,
            Icon = ActionIcon.Accept,
