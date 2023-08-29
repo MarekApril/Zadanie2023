@@ -24,11 +24,11 @@ namespace Rekrutacja.Workers.Template
             [Caption("A")]
             [DefaultWidth(300)]
             [Priority(1)]
-            public int ZmiennaA { get; set; }
+            public string ZmiennaA { get; set; }
             [Priority(2)]
             [Caption("B")]
             [DefaultWidth(300)]
-            public int ZmiennaB { get; set; }
+            public string ZmiennaB { get; set; }
             [Priority(3)]
             [Caption("Data obliczeń")]
             public Date DataObliczen { get; set; }
@@ -78,7 +78,7 @@ namespace Rekrutacja.Workers.Template
                 //Otwieramy Transaction aby można było edytować obiekt z sesji
                 using (ITransaction trans = nowaSesja.Logout(true))
                 {
-                    var result = Calculate(Parametry.ZmiennaA, Parametry.ZmiennaB, Parametry.MathSign);
+                    var result = Parametry.ZmiennaA.DoubleParser() + Parametry.ZmiennaB.DoubleParser();
                     foreach (var selectedWorker in selectedWorkers)
                     {
                         //Pobieramy obiekt z Nowo utworzonej sesji
@@ -95,30 +95,67 @@ namespace Rekrutacja.Workers.Template
                 nowaSesja.Save();
             }
         }
+    }
 
-        private double Calculate(int numberOne, int numberTwo, string mathSign)
+    public static class Extentions
+    {
+        public static double DoubleParser(this string signs)
         {
-            if (mathSign == "+")
+            var lista = new List<double>();
+            foreach (var sign in signs)
             {
-                return numberOne + numberTwo;
+                if (sign == 48)
+                {
+                    lista.Add(0);
+                }
+                if (sign == 49)
+                {
+                    lista.Add(1);
+                }
+                if (sign == 50)
+                {
+                    lista.Add(2);
+                }
+                if (sign == 51)
+                {
+                    lista.Add(3);
+                }
+                if (sign == 52)
+                {
+                    lista.Add(4);
+                }
+                if (sign == 53)
+                {
+                    lista.Add(5);
+                }
+                if (sign == 54)
+                {
+                    lista.Add(6);
+                }
+                if (sign == 55)
+                {
+                    lista.Add(7);
+                }
+                if (sign == 56)
+                {
+                    lista.Add(8);
+                }
+                if (sign == 57)
+                {
+                    lista.Add(9);
+                }
             }
 
-            if (mathSign == "-")
+            var listtt = lista.ToArray();
+
+            double combine = 0;
+
+            for (int i = 0; i < listtt.Length; i++)
             {
-                return numberOne - numberTwo;
+                combine += listtt[i] * Convert.ToDouble(System.Math.Pow(10, listtt.Length - i - 1));
             }
 
-            if (mathSign == "*")
-            {
-                return numberOne * numberTwo;
-            }
-
-            if (mathSign == "/")
-            {
-                return numberOne / numberTwo;
-            }
-
-            return 0.00;
+            return combine;
         }
     }
 }
