@@ -101,61 +101,62 @@ namespace Rekrutacja.Workers.Template
     {
         public static double DoubleParser(this string signs)
         {
-            var lista = new List<double>();
+            bool isNegative = false;
+            var numberLength = signs.Length - 1;
+            var numbers = new Dictionary<int, double>()
+            {
+                {48, 0},
+                {49, 1},
+                {50, 2},
+                {51, 3},
+                {52, 4},
+                {53, 5},
+                {54, 6},
+                {55, 7},
+                {56, 8},
+                {57, 9},
+            };
+
+            var sortedNumbers = new List<double>();
+
             foreach (var sign in signs)
             {
-                if (sign == 48)
+                foreach (var number in numbers)
                 {
-                    lista.Add(0);
-                }
-                if (sign == 49)
-                {
-                    lista.Add(1);
-                }
-                if (sign == 50)
-                {
-                    lista.Add(2);
-                }
-                if (sign == 51)
-                {
-                    lista.Add(3);
-                }
-                if (sign == 52)
-                {
-                    lista.Add(4);
-                }
-                if (sign == 53)
-                {
-                    lista.Add(5);
-                }
-                if (sign == 54)
-                {
-                    lista.Add(6);
-                }
-                if (sign == 55)
-                {
-                    lista.Add(7);
-                }
-                if (sign == 56)
-                {
-                    lista.Add(8);
-                }
-                if (sign == 57)
-                {
-                    lista.Add(9);
+                    if (sign == number.Key)
+                    {
+                        var numberAdd = System.Math.Pow(10, numberLength);
+                        if (numberLength == 0)
+                        {
+                            sortedNumbers.Add(number.Value);
+                        }
+                        else
+                        {
+                            sortedNumbers.Add(number.Value * numberAdd);
+                            numberLength--;
+                        }
+                    }
+
+                    if (sign == 45)
+                    {
+                        isNegative = true;
+                    }
                 }
             }
 
-            var listtt = lista.ToArray();
+            double result = 0;
 
-            double combine = 0;
-
-            for (int i = 0; i < listtt.Length; i++)
+            foreach (var sortedNumber in sortedNumbers)
             {
-                combine += listtt[i] * Convert.ToDouble(System.Math.Pow(10, listtt.Length - i - 1));
+                result += sortedNumber;
             }
 
-            return combine;
+            if (isNegative)
+            {
+                result = -result;
+            }
+
+            return result;
         }
     }
 }
