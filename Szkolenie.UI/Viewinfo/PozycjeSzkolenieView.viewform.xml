@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DataForm Contexts="License.All" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns="http://www.enova.pl/schema/form.xsd"
+          xsi:schemaLocation="http://www.enova.pl/schema/ http://www.enova.pl/schema/form.xsd">
+  <Flow Name="FilterPanel">
+    <Field CaptionHtml="Nazwisko" LabelWidth="30"  EditValue="{PozycjeSzkolenieViewViewInfo+WParams.Nazwisko}" />
+  </Flow>
+
+  <Grid Name="List" RemoveButton="Visible" >
+    <Field CaptionHtml="Naziwsko" OuterWidth="70" LabelWidth="30"  EditValue="{Nazwisko}" />
+    <Field CaptionHtml="Ilość" OuterWidth="70" LabelWidth="30"  EditValue="{Ilosc}" />
+
+  </Grid>
+</DataForm>

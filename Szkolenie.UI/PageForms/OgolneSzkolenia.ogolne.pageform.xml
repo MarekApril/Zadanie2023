@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<DataForm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns="http://www.enova.pl/schema/form.xsd"
+          xsi:schemaLocation="http://www.enova.pl/schema/ http://www.enova.pl/schema/form.xsd"
+          RightName="Page:Ogolne szkoleniaPage"
+          Priority="1"
+          DataType="Soneta.Handel.DokumentHandlowy, Soneta.Handel">
+  <Page Name="Ogolne szkoleniaPage" CaptionHtml="Ogolne szkolenia" DataContext="{DataSource}" Visibility="{new OgolneSzkolenia.WidocznoscZakladki}">
+    <Group DataContext="{new OgolneSzkolenia}" >
+      <Grid Name="List" RemoveButton="Visible" EditButton="Visible" NewButton="Visible" IsToolbarVisible="true" EditValue="{PozycjeSzkolenia}">
+        <Field CaptionHtml="Naziwsko" OuterWidth="70" LabelWidth="30"  EditValue="{Nazwisko}" />
+        <Field CaptionHtml="Ilość" OuterWidth="70" LabelWidth="30"  EditValue="{Ilosc}" />
+      </Grid>
+
+      <Field CaptionHtml="Dokument" LabelWidth="30"  EditValue="{Dokument}" />
+    </Group>
+  </Page>
+</DataForm>

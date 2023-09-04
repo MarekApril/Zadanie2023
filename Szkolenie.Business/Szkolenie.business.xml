@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- Zawiera informację nagłówkową pliku XML oraz informację o użytym kodowaniu znaków. -->
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.enova.pl/schema/business_struct.xsd" xsi:schemaLocation="http://www.enova.pl/schema/ http://www.enova.pl/schema/business_struct.xsd"
+ name="Szkolenie" namespace="Szkolenie.Business" versionName="Szkolenie" versionNumber="2">
+
+  <using>Soneta.Business.Db</using>
+  <using>Soneta.Business.App</using>
+  <using>Soneta.Core</using>
+  <using>Soneta.Core.DbTuples</using>
+  <using>Soneta.Handel</using>
+  <using>Soneta.Produkcja</using>
+  <using>Soneta.Kadry</using>
+  <using>Soneta.Place</using>
+  <using>Soneta.Kalend</using>
+  <using>Soneta.CRM</using>
+  <using>Soneta.CRM.Config</using>
+  <using>Soneta.Zadania</using>
+  <using>Soneta.Ksiega</using>
+  <using>Soneta.Towary</using>
+  <using>Soneta.Magazyny</using>
+  <using>Soneta.Kasa</using>
+  <using>Soneta.Waluty</using>
+  <using>Soneta.HR</using>
+  <using>Soneta.Types</using>
+  <using>Szkolenie.Business</using>
+  <using>Szkolenie.Tabele</using>
+  <using>Szkolenie.Tabele.Rows</using>
+
+
+  <table name="PozycjaSzkolenia" tablename="PozycjeSzkolenie" guided="Root">
+    <key name="WgNazwisko" keyprimary="true" >
+      <keycol name="Nazwisko" />
+    </key>
+
+    <col name="Ilosc" type="string" length="100" caption="Ilość" />
+    <col name="Nazwisko" type="string" length="100" caption="Nazwisko" />
+    <col name="NazwiskoPanienskie" type="string" length="100" caption="Nazwisko" />
+  </table>
+
+</module>
